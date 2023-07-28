@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "plugins": ["@nestjs/swagger"],
+    "assets": [
+      {
+
+        "include": "./database/dataSeed/*.json",
+        "outDir": "./dist/database/dataseed"
+      }
+    ],
+
+    "deleteOutDir": true
+  }
+}
