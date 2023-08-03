@@ -1,5 +1,5 @@
 export class InverterInformation {
-  id: string;
+  inverterId:string
   gridFrequencyHz: number;
   inverterOutputVoltageV: number;
   inverterOutputFrequencyHz: number;

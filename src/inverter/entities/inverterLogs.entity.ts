@@ -1,11 +1,11 @@
 import { Device } from 'src/device/device.entity';
-import { Entity, Column, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 import { Inverter } from './inverter.entity';
 
 @Entity()
 export class InverterLog {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column()
     gridFrequencyHz: number;
@@ -64,7 +64,17 @@ export class InverterLog {
     @Column()
     consumedCurrentFromBattery: number;
 
+    @Column({name:'inverterId'})
+    inverterId:string
+
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
+    public created_at: Date;
+
+
     @ManyToOne(() => Inverter, i => i.logs)
+    @JoinColumn({name:'inverterId'})
     inverter: Inverter
+
+    
 
 }
