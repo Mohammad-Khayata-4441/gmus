@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common';
-import { InverterInformation } from './dto/inverterInfo.dto';
+import { Controller, Post, Body, Get, Query, Param } from '@nestjs/common';
+import { Information } from './dto/inverterInfo.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { InverterService } from './inverter.service';
 import { AddInverterDto } from './dto/addInverter.dto';
@@ -10,13 +10,12 @@ export class InverterController {
 
     constructor(private inverterService: InverterService) { }
 
-
     @Post('information')
-    setInverterInformation(@Body() payload: InverterInformation) {
+    setInverterInformation(@Body() payload: Information) {
         return this.inverterService.newLog(payload)
     }
 
-    @Post('new')
+    @Post()
     addInverter(@Body() data: AddInverterDto) {
         return this.inverterService.newInverter(data)
     }
@@ -27,13 +26,18 @@ export class InverterController {
         return this.inverterService.fetch()
     }
 
-    @Get('log')
-    getLog() {
-        return this.inverterService.getLogs()
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.inverterService.findOne(id)
     }
 
-    @Get('getLast')
-    getLast(@Query('inverterId') inverterId: string) {
+    // @Get('log')
+    // getLog() {
+    //     return this.inverterService.getLogs()
+    // }
+
+    @Get('information/:inverterId')
+    getLast(@Param('inverterId') inverterId: string) {
         return this.inverterService.getLast(inverterId)
     }
 

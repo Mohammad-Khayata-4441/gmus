@@ -6,9 +6,10 @@ import { DeviceModule } from './device/device.module';
 import { InverterModule } from './inverter/inverter.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'database/dataSource';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions),UserModule, DeviceModule, InverterModule, ],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions),UserModule, DeviceModule, InverterModule, SettingsModule, ],
   controllers: [AppController],
   providers: [AppService],
 })
