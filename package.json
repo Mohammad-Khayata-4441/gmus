@@ -5,9 +5,6 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "engines": {
-    "node": "18.16.0"
-  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -25,7 +22,8 @@
     "typeorm:dev": "NODE_ENV=dev ts-node  --require tsconfig-paths/register  ./node_modules/typeorm/cli",
     "migration:generate": "npm run typeorm -- -d ./database/typeorm.config.ts migration:generate ",
     "migration:generate:dev": "npm run typeorm:dev  -- -d ./database/typeorm.config.ts migration:generate ",
-    "migration:run": "npm run typeorm migration:run -- -d ./database/typeorm.config.ts"
+    "migration:run": "npm run typeorm migration:run -- -d ./database/typeorm.config.ts",
+    "migration:run:dev": "npm run typeorm:dev migration:run -- -d ./database/typeorm.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
