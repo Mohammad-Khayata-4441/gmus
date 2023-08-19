@@ -5,12 +5,36 @@ import { UserModule } from './user/user.module';
 import { DeviceModule } from './device/device.module';
 import { InverterModule } from './inverter/inverter.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from 'database/dataSource';
 import { SettingsModule } from './settings/settings.module';
-
+import { EventGateway } from './event.gateway';
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import dbConfig from './config/db.config'
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions),UserModule, DeviceModule, InverterModule, SettingsModule, ],
+  imports: [
+
+    ConfigModule.forRoot({
+      load: [dbConfig],
+      isGlobal: true,
+      envFilePath: [`.env.${process.env.NODE_ENV}`],
+
+
+    }), 
+
+    
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        return { ...await configService.get('database') }
+      },
+      inject: [ConfigService],
+    }),
+
+
+    
+    
+    
+    UserModule, DeviceModule, InverterModule, SettingsModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, EventGateway],
 })
-export class AppModule {}
+export class AppModule { }

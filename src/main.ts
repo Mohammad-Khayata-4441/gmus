@@ -3,6 +3,21 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
+  // dotenv.config({ path: '.env.dev' }); // Load variables from .env file
+
+
+
+  const dbHost = process.env.DB_HOST;
+  const dbUser = process.env.DB_USER;
+  const dbPass = process.env.DB_PASS;
+
+  
+
+  console.log(`Database Host: ${dbHost}`);
+  console.log(`Database User: ${dbUser}`);
+  console.log(`Database Password: ${dbPass}`);
+
+
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('GMUS')
@@ -14,3 +29,4 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+// "migration:generate:dev": "npm run typeorm:dev -- -d ./database/typeorm.config.ts migration:generate",
