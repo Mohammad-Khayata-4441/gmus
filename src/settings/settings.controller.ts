@@ -8,10 +8,10 @@ import { ApiTags } from '@nestjs/swagger';
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) { }
 
-  @Post(':id')
-  create(@Param('inverterId') inverterId:string, @Body() createSettingDto: UpdateSettingDto) {
-    return this.settingsService.create(inverterId, createSettingDto);
-  }
+  // @Post(':id')
+  // create(@Param('inverterId') inverterId:string, @Body() createSettingDto: UpdateSettingDto) {
+  //   return this.settingsService.create(inverterId, createSettingDto);
+  // }
 
  
   @Get(':inverterId')

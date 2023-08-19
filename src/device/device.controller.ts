@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DeviceService } from './device.service';
-import { AddDeviceDto } from './device.dto';
+import { AddDeviceDto, DeviceStatus } from './device.dto';
 
 
 @ApiTags('Device')
@@ -17,9 +17,13 @@ export class DeviceController {
         return this.deviceService.addDevice(dto)
     }
 
-    @Get()
+    @Get('getDevices')
     getInverterDevices(@Query('inverterId') inverterId: string) {
-
         return this.deviceService.getInverterDevices(inverterId)
+    }
+
+    @Put(':deviceId')
+    updateDeviceStatus(@Body() payload:DeviceStatus) {
+        return this.deviceService.updateDevicesStatus([payload])
     }
 }

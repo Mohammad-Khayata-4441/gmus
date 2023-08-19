@@ -35,8 +35,13 @@ export class InverterService {
 
         await this.deviceService.updateDevicesStatus(devicesStatus)
 
-        const inverterSettings = this.settingsService.findOne(log.inverterId);
-        const deviceStatus = this.deviceService.getInverterDevices(log.inverterId)
+        const inverterSettings = await this.settingsService.findOne(log.inverterId);
+        const deviceStatus = await this.deviceService.getInverterDevices(log.inverterId)
+
+
+        console.log(inverterSettings)
+        console.log(deviceStatus)
+
 
         return { deviceStatus, inverterSettings };
 
@@ -54,7 +59,10 @@ export class InverterService {
         })
 
         await this.InverterRepo.save(instance)
-
+        await this.settingsService.create(instance.id, {
+            ...inverterInfo.settings,
+            inverterId: instance.id,
+        })
 
         // TODO Move Device Service"
         inverterInfo.devices.forEach(async (device) => {
@@ -71,7 +79,7 @@ export class InverterService {
     }
 
     findOne = async (id: string) => {
-        return this.InverterRepo.findOne({ where: { id }, relations: { devices: true ,settings:true} })
+        return this.InverterRepo.findOne({ where: { id }, relations: { devices: true, settings: true } })
     }
 
 
