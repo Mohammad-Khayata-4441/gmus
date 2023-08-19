@@ -8,8 +8,8 @@ async function bootstrap() {
 
 
   const dbHost = process.env.DB_HOST;
-  const dbUser = process.env.DB_USER;
-  const dbPass = process.env.DB_PASS;
+  const dbUser = process.env.DB_USERNAME;
+  const dbPass = process.env.DB_PASSWORD;
 
   
 
