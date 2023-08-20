@@ -12,5 +12,11 @@ export default registerAs('database', () => ({
   synchronize: process.env.NODE_ENV === 'development',
   logging: process.env.NODE_ENV === 'development',
   migrations: [`${__dirname}/../../db/migrations/*{.ts,.js}`],
+  // "ssl": true, // Enable SSL connection
+  // "extra": {
+  //   "ssl": {
+  //     "rejectUnauthorized": false // Set this to true or false based on your security requirements
+  //   }
+  // },
   migrationsTableName: 'migrations',
 } as TypeOrmModuleOptions));

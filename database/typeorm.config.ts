@@ -18,4 +18,10 @@ export default new DataSource({
     entities: [`${__dirname}/../src/**/*.entity{.ts,.js}`],
     migrationsTableName: 'migrations',
     migrations: [`${__dirname}/migrations/*{.ts,.js}`],
+    "ssl": true, // Enable SSL connection
+    "extra": {
+      "ssl": {
+        "rejectUnauthorized": false // Set this to true or false based on your security requirements
+      }
+    },
 })
