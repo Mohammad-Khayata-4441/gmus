@@ -24,6 +24,7 @@ import dbConfig from './config/db.config'
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
+        console.log(await configService.get('database'))
         return { ...await configService.get('database') }
       },
       inject: [ConfigService],

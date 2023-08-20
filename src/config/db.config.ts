@@ -1,10 +1,10 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import fs from 'fs'
+
 export default registerAs('database', () => ({
   type: 'postgres',
   host: process.env.DB_HOST,
-  port: +process.env.PORT,
+  port: +process.env.DB_PORT,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
@@ -12,17 +12,12 @@ export default registerAs('database', () => ({
   synchronize: process.env.NODE_ENV === 'development',
   logging: process.env.NODE_ENV === 'development',
   migrations: [`${__dirname}/../../db/migrations/*{.ts,.js}`],
-  "ssl": process.env.NODE_ENV === 'prod'
-    ? {
-      requestCert: true,
-      rejectUnauthorized: true,
-      ca: fs.readFileSync(`${process.cwd()}/ca-certificate.crt`).toString(),
-    }
-    : undefined,
-  "extra": {
-    "ssl": {
-      "rejectUnauthorized": false
-    }
-  },
+  
+  // "ssl": true, 
+  // "extra": {
+  //   "ssl": {
+  //     "rejectUnauthorized": true 
+  //   }
+  // },
   migrationsTableName: 'migrations',
 } as TypeOrmModuleOptions));
